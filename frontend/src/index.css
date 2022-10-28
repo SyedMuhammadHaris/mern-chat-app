@@ -40,3 +40,9 @@ div.error {
 input.error {
   border: 1px solid #e7195a;
 }
+
+.chatComp{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

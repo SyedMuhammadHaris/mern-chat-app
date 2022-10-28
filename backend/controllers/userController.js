@@ -37,4 +37,20 @@ const signupUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser }
+//@description     Get or Search all users
+//@route           GET /api/user?search=
+//@access          Public
+const allUsers = async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { email: { $regex: req.query.search, $options: "i" } }
+        ],
+      }
+    : {};
+
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  res.send(users);
+};
+
+module.exports = { signupUser, loginUser , allUsers}
